@@ -13,6 +13,7 @@ def home():
     return render_template('home.html')
 
 
+# Method used by Postman api
 @app.route('/predict_api', methods=['POST'])
 def predict_api():
     data = request.json['data']
