@@ -1,5 +1,5 @@
 import pickle
-from flask import Flask, request, app, jsonify, url_for, render_template
+from flask import Flask, request, jsonify, render_template
 import numpy as np
 import pandas as pd
 
@@ -13,7 +13,8 @@ def home():
     return render_template('home.html')
 
 
-# Method used by Postman api
+# Single value prediction
+# Method used by Postman api 
 @app.route('/predict_api', methods=['POST'])
 def predict_api():
     data = request.json['data']
@@ -23,16 +24,15 @@ def predict_api():
     return jsonify(output)
 
 
+# Single value prediction
 # Method used by front end
 @app.route('/predict', methods=['POST'])
 def predict():
     data = [float(x) for x in request.form.values()]
     final_features = [np.array(data)]
     print(data)
-
     output = model.predict(final_features)[0]
     print(output)
-    # output = round(prediction[0], 2)
     return render_template('home.html', prediction_text="Airfoil pressure is  {}".format(output))
 
 
