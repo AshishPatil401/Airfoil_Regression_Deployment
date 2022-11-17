@@ -14,7 +14,7 @@ def home():
 
 
 # Single value prediction
-# Method used by Postman api 
+# API and Method used by Postman 
 @app.route('/predict_api', methods=['POST'])
 def predict_api():
     data = request.json['data']
@@ -24,8 +24,8 @@ def predict_api():
     return jsonify(output)
 
 
-# Single value prediction
-# Method used by front end
+# Single prediction
+# API and Method used by front end
 @app.route('/predict', methods=['POST'])
 def predict():
     data = [float(x) for x in request.form.values()]
@@ -34,6 +34,20 @@ def predict():
     output = model.predict(final_features)[0]
     print(output)
     return render_template('home.html', prediction_text="Airfoil pressure is  {}".format(output))
+
+
+# Bulk prediction
+# API Method used by Postman 
+@app.route('/predict_bulk', methods=['POST'])
+def bulk_predict():
+    pass
+
+
+# Bulk prediction
+# API Method used by front end
+@app.route('/bulk_predict_api', methods=['POST'])
+def bulk_predict_api():
+    pass
 
 
 if __name__ == "__main__":
